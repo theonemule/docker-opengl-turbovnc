@@ -1,4 +1,6 @@
 FROM ubuntu
+WORKDIR /app
+COPY /deps /app
 ENV USER=root
 ENV PASSWORD=password1
 ENV DEBIAN_FRONTEND=noninteractive 
@@ -8,12 +10,9 @@ RUN apt-get update && \
 	echo "tzdata tzdata/Zones/America select New York" >> ~/tx.txt && \
 	debconf-set-selections ~/tx.txt && \
 	apt-get install -y abiword gnupg apt-transport-https wget software-properties-common ratpoison novnc websockify libxv1 libglu1-mesa xauth x11-utils xorg tightvncserver && \
-	wget https://svwh.dl.sourceforge.net/project/virtualgl/2.6.3/virtualgl_2.6.3_amd64.deb && \
-	wget https://iweb.dl.sourceforge.net/project/turbovnc/2.2.4/turbovnc_2.2.4_amd64.deb && \
-	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
-	apt install -y ./google-chrome-stable_current_amd64.deb	&& \
-	dpkg -i virtualgl_*.deb && \
-	dpkg -i turbovnc_*.deb && \
+	apt install -y /app/google-chrome-stable_current_amd64.deb	&& \
+	dpkg -i /app/virtualgl_*.deb && \
+	dpkg -i /app/turbovnc_*.deb && \
 	mkdir ~/.vnc/ && \
 	mkdir ~/.dosbox && \
 	echo $PASSWORD | vncpasswd -f > ~/.vnc/passwd && \
