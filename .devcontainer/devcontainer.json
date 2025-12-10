@@ -1,0 +1,8 @@
+{
+  "forwardPorts": [5901, 6080],
+  "portsAttributes": {
+    "5901": { "label": "TurboVNC Server" },
+    "6080": { "label": "noVNC Proxy", "onAutoForward": "openPreview" }
+  },
+  "postCreateCommand": "echo 'Ports forwarded: Access noVNC at :6080'"
+}
